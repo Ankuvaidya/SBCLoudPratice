@@ -1,0 +1,25 @@
+server:
+    port : 8088
+    
+spring:
+   application:
+      name: API-GATEWAY
+    cloud:
+      gateway:
+      routes:
+         - id: customers
+            uri: lb://USER-SERVICE
+            predicates:
+            - Path=/user/**
+         - id: restaurants
+            uri: lb://DEPARTMENT-SERVICE
+            predicates:
+            - Path=/department/**
+    
+eureka:
+   client:
+      serviceUrl:
+         defaultZone: http://localhost:8761/eureka
+      instance:
+      preferIpAddress: true
+
